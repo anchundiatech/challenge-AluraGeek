@@ -72,13 +72,12 @@ async function crearNuevaTarjeta(e) {
   const imagen = document.querySelector("[data-imagen]").value;
   const id = Math.floor((Math.random() * 100) + 1).toString();
 
-  console.log('Datos del nuevo producto:', { nombre, precio, imagen, id });
-
   try {
     await conexionAPI.nuevoProducto(nombre, precio, imagen, id);
-    console.log('Producto creado exitosamente');
+
     tarjeta.innerHTML = ""; // Limpia el contenedor antes de actualizar la lista de productos
     listaProductos(); // Actualiza la lista de productos
+    botonFormulario.reset(); // Limpia el formulario
   } catch (error) {
     mostrarMensaje("Error al crear el producto", "error-message");
     console.error('Error al crear el producto:', error);
@@ -89,8 +88,11 @@ async function crearNuevaTarjeta(e) {
 botonFormulario.addEventListener("submit", (e) => crearNuevaTarjeta(e));
 
 // Botón limpiar formulario
+
 botonLimpiar.addEventListener("click", (e) => {
   e.preventDefault();
-  botonFormulario.reset();
+ const inputs = botonFormulario.querySelectorAll([data-formulario]);
+  inputs.forEach(input => input.value = "");
+
   console.log("Formulario limpiado");
 });
