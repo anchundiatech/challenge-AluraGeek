@@ -53,7 +53,7 @@ async function nuevoProducto(nombre, precio, imagen) {
     }
 
     const data = await response.json();
-    console.log("Producto creado:", data);
+    
     mostrarPopupExito();
     return data;
   } catch (error) {
