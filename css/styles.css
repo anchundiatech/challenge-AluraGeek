@@ -280,7 +280,6 @@ h1 {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  background-color: #27ae60;
   color: white;
   padding: 12px 20px;
   border-radius: 8px;
@@ -291,6 +290,15 @@ h1 {
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease;
   z-index: 9999;
+}
+/* Color verde para popup de éxito */
+#popup-exito {
+  background-color: #27ae60;
+}
+
+/* Color rojo para popup de eliminación */
+#popup-delete {
+  background-color: #e74c3c;
 }
 
 #popup-exito.mostrar,
