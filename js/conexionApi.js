@@ -2,7 +2,7 @@
 export const  verificarconexiondelaapi = async () => {
 
   try {
-    const response = await fetch('https://alura-geek-api-six.vercel.app/');
+    const response = await fetch('https://alura-geek-fake-api-oi9y.onrender.com/');
     if (!response.ok) {
       throw new Error(`Error en la conexión: ${response.status} ${response.statusText}`);
     }
@@ -25,7 +25,7 @@ export const  verificarconexiondelaapi = async () => {
 // Función para obtener la lista de productos
 async function listaProductos() {
   try {
-    const response = await fetch('https://alura-geek-api-six.vercel.app/productos');
+    const response = await fetch('https://alura-geek-fake-api-oi9y.onrender.com/products');
     if (!response.ok) {
       throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
     }
@@ -39,33 +39,45 @@ async function listaProductos() {
 }
 
 // Función para crear un nuevo producto
-async function nuevoProducto(nombre, precio, imagen, id) {
+async function nuevoProducto(nombre, precio, imagen) {
   try {
-    const response = await fetch("https://alura-geek-api-six.vercel.app/productos", {
+    const response = await fetch("https://alura-geek-fake-api-oi9y.onrender.com/products", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ nombre, precio, imagen, id })
+      body: JSON.stringify({ nombre, precio, imagen})
     });
 
     if (!response.ok) {
-      throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
+      throw new Error(`Error al crear el producto: ${response.status} ${response.statusText}`);
     }
 
     const data = await response.json();
     console.log("Producto creado:", data);
+    mostrarPopupExito();
     return data;
   } catch (error) {
     alert("Error en la conexión: " + error.message);
     console.error("Detalles del error:", error);
   }
+
+
+
+}
+function mostrarPopupExito() {
+  const popup = document.getElementById("popup-exito");
+  popup.classList.add("mostrar");
+
+  setTimeout(() => {
+    popup.classList.remove("mostrar");
+  }, 3000); // Oculta luego de 3 segundos
 }
 
 // Función para eliminar un producto
 async function eliminarTarjeta(id) {
   try {
-    const response = await fetch(`https://alura-geek-api-six.vercel.app/productos/${id}`, {
+    const response = await fetch(`https://alura-geek-fake-api-oi9y.onrender.com/products/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json"
@@ -76,13 +88,30 @@ async function eliminarTarjeta(id) {
       throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
     }
 
-    const data = await response.json();
-    console.log("Producto eliminado:", data);
+    if (response.status !== 204){
+      const data = await response.json();
+    PopupDelete(); // Muestra el popup de éxito
+
+    console.log("Producto eliminado correctamente:", data);
     return data;
-  } catch (error) {
+  } else{
+    alert("Producto eliminado correctamente");
+    return;
+  }
+}catch (error) {
     alert("Error en la conexión: " + error.message);
     console.error("Detalles del error:", error);
   }
+}
+
+function PopupDelete() {
+  const popup = document.getElementById("popup-delete");
+  popup.classList.add("mostrar");
+
+  setTimeout(() => {
+    popup.classList.remove("mostrar");
+  }, 3000);
+
 }
 
 export const conexionAPI = {
