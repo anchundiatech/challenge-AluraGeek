@@ -1,4 +1,4 @@
-import { conexionAPI } from "./conexionAPI.js";
+import { conexionAPI } from "./conexionApi.js";
 
 const tarjeta = document.querySelector("[data-producto]");
 const botonFormulario = document.querySelector("[data-formulario]");
