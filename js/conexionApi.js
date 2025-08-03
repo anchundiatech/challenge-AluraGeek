@@ -30,11 +30,10 @@ async function listaProductos() {
       throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
     }
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     alert("Error en la conexión: " + error.message);
-    console.error("Detalles del error:", error);
+
   }
 }
 
@@ -58,8 +57,8 @@ async function nuevoProducto(nombre, precio, imagen) {
     mostrarPopupExito();
     return data;
   } catch (error) {
-    alert("Error en la conexión: " + error.message);
-    console.error("Detalles del error:", error);
+    alert("Error al crear el producto problema con la conexion con el servidor: " + error.message);
+
   }
 
 
@@ -92,15 +91,15 @@ async function eliminarTarjeta(id) {
       const data = await response.json();
     PopupDelete(); // Muestra el popup de éxito
 
-    console.log("Producto eliminado correctamente:", data);
+
     return data;
   } else{
-    alert("Producto eliminado correctamente");
+    alert("No se pudo eliminar el producto probablemente no existe");
     return;
   }
 }catch (error) {
     alert("Error en la conexión: " + error.message);
-    console.error("Detalles del error:", error);
+
   }
 }
 
